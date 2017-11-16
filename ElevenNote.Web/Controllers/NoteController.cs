@@ -12,19 +12,25 @@ namespace ElevenNote.Web.Controllers
     [Authorize] //'attribute' locks down controller. Result: redirects user to login page
     public class NoteController : Controller
     {
+        private NoteService CreateNoteService()
+        {
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var svc = new NoteService(userId);
+
+            return svc;
+        }
+
         // GET: Note
         public ActionResult Index()
         {
-            var userId = Guid.Parse(User.Identity.GetUserId());
-            var svc = new NoteService();
-            var model = svc.GetNotes();
+            var model = CreateNoteService().GetNotes();
             return View(model);
         }
-         
+
         public ActionResult Create()
         {
             var model = new NoteCreateModel();
-            return View();
+            return View(model);
         }
 
         [HttpPost]
@@ -33,12 +39,8 @@ namespace ElevenNote.Web.Controllers
         {
             if (!ModelState.IsValid) return View(model);
 
-            var userId = Guid.Parse(User.Identity.GetUserId());
-            var svc = new NoteService();
-
-            if (!svc.CreateNote(model))
+            if (!CreateNoteService().CreateNote(model))
             {
-
                 ModelState.AddModelError("", "Unable to create note");
                 return View(model);
             }
@@ -47,7 +49,9 @@ namespace ElevenNote.Web.Controllers
 
         public ActionResult Details(int id)
         {
+            var model =  CreateNoteService().GetNoteById(id);
 
+            return View(model);
         }
 
 
