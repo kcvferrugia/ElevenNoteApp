@@ -20,7 +20,7 @@ namespace ElevenNote.Web.Controllers
             var model = svc.GetNotes();
             return View(model);
         }
-
+         
         public ActionResult Create()
         {
             var model = new NoteCreateModel();
@@ -43,6 +43,11 @@ namespace ElevenNote.Web.Controllers
                 return View(model);
             }
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Details(int id)
+        {
+
         }
 
 
