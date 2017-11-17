@@ -5,7 +5,7 @@ using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Http;
 
-namespace ElevenNote.Web.App_Start
+namespace ElevenNote.Web
 {
     public static class WebApiConfig
     {

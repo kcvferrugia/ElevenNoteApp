@@ -100,6 +100,7 @@ namespace ElevenNote.Services
 
                 entity.Title = model.Title;
                 entity.Content = model.Content;
+                entity.IsStarred = model.IsStarred;
                 entity.ModifiedUtc = DateTime.UtcNow;
 
                 return ctx.SaveChanges() == 1;
